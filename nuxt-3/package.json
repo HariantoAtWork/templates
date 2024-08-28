@@ -1,0 +1,20 @@
+{
+  "name": "{{ name }}",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "docker-build": "sh docker-deploy.sh docker-build",
+    "docker-run": "sh docker-deploy.sh docker-run",
+    "docker-build-run": "sh docker-deploy.sh docker-build-run",
+    "docker-push": "sh docker-deploy.sh docker-push"
+  },
+  "dependencies": {
+    "nuxt": "^3.13.0",
+    "vue": "latest"
+  }
+}

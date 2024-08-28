@@ -1,0 +1,21 @@
+version: '3.9'
+
+services:
+  cvbuilder-app:
+    platform: linux/amd64
+    # user: '1000:1000'
+    build:
+      context: .
+      dockerfile: dev.Dockerfile
+    image: harianto/cvbuilder
+    restart: always
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - .docker-mount/db:/app/db
+      - .docker-mount/data:/app/data
+
+networks:
+  default:
+    external:
+      name: xnmp-network
