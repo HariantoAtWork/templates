@@ -22,3 +22,6 @@ logs
 .env
 .env.*
 !.env.example
+
+# App
+package-lock.json
