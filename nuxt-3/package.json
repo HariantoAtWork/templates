@@ -1,5 +1,5 @@
 {
-  "name": "{{ name }}",
+  "name": "template-nuxt-3-13",
   "private": true,
   "type": "module",
   "scripts": {
