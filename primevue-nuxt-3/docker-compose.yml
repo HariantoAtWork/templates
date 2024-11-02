@@ -1,0 +1,14 @@
+services:
+  nuxt-app:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: $DOCKER_HUB_IMAGE
+    restart: always
+    volumes:
+      - ./data/acmedns-client/db:/app/public
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
