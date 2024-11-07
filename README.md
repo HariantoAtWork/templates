@@ -6,6 +6,6 @@ Nuxt 3 is a modern web framework for building server-rendered Vue.js application
 With Docker deployment ready.
 
 ```bash
-FOLDER=primevue-nuxt-3
+FOLDER=primevue
 npx giget@latest --install gh:hariantoatwork/templates/$FOLDER myProject
 ```
