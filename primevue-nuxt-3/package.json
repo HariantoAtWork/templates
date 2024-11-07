@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@nuxtjs/tailwindcss": "^6.12.2",
-    "@primevue/nuxt-module": "^4.1.1",
     "@primevue/themes": "^4.1.1",
     "axios": "^1.7.7",
     "nuxt": "^3.13.0",
@@ -19,5 +18,8 @@
     "primevue": "^4.1.1",
     "sass": "~1.32.13",
     "tailwindcss-primeui": "^0.3.4"
+  },
+  "devDependencies": {
+    "@primevue/nuxt-module": "^4.1.1"
   }
 }

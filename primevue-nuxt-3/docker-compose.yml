@@ -7,7 +7,7 @@ services:
     image: $DOCKER_HUB_IMAGE
     restart: always
     volumes:
-      - ./data/acmedns-client/db:/app/public
+      - ./.docker-mounts/nuxt-app:/app/data
     env_file:
       - .env
     ports:

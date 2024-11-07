@@ -1,4 +1,4 @@
-FROM node:20.16-alpine AS builder-base
+FROM node:20.16-alpine AS node-modules
 
 # Set environment variables in the BUILDER stage
 ENV NODE_ENV=production
@@ -10,11 +10,21 @@ RUN apk add --update --no-cache
 RUN npm i -g pnpm
 
 COPY package.json $NODE_WORKDIR/
-# RUN pnpm shrinkwrap
+COPY pnpm-lock.yaml $NODE_WORKDIR/
 RUN pnpm install
-COPY . $NODE_WORKDIR
 
-# CMD ["pnpm", "run", "dev"]
+FROM node:20.16-alpine AS builder
+# Set environment variables in the BUILDER stage
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV NODE_WORKDIR=/app
+WORKDIR $NODE_WORKDIR
+ENV PNPM_BIN=/usr/local/bin
+
+COPY . $NODE_WORKDIR
+COPY --from=node-modules $NODE_WORKDIR $NODE_WORKDIR
+
+RUN npm i -g pnpm
 RUN pnpm run build
 
 # New stage for the final image
@@ -27,8 +37,8 @@ ENV NODE_WORKDIR=/app
 ENV NUXT_HOST=0.0.0.0
 WORKDIR $NODE_WORKDIR
 
-# Copy from the BUILDER-BASE stage
-COPY --from=builder-base $NODE_WORKDIR/.output $NODE_WORKDIR
+# Copy from the BUILDER stage
+COPY --from=builder $NODE_WORKDIR/.output $NODE_WORKDIR
 
 EXPOSE 3000
 

@@ -1,0 +1,17 @@
+# Ignore the public folder
+public/
+
+# Ignore the .docker-mount folder
+.docker-mount/
+
+# Ignore the .env file
+.env
+
+package-lock.json
+node_modules/
+# pnpm-lock.yaml
+pnpm-workspace.yaml
+
+.output/
+.nuxt/
+.bolt/
