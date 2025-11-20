@@ -99,6 +99,29 @@ This command will:
 - Set up indexes and constraints
 - Prepare your database for authentication
 
+### 6. Create Client-Side Auth Composable
+
+Create the client-side auth composable file at `/shared/utils/useAuth.js`:
+
+```js
+import { createAuthClient as useAuth } from 'better-auth/vue'
+import { computed } from 'vue'
+
+// Auth state
+const session = useAuth().useSession()
+const user = computed(() => session.value?.data?.user || null)
+
+export default useAuth
+export { user }
+```
+
+This file provides:
+- A Vue composable for accessing Better Auth client functionality
+- Reactive user state that can be used throughout your application
+- Session management utilities
+
+**Note**: This file must be created in the `shared/utils/` directory for the module to work correctly with client-side components.
+
 ## Configuration
 
 ### Social Providers Setup
@@ -154,9 +177,20 @@ Import the auth composable in your Vue components:
 
 ```vue
 <script setup>
-import { useAuth } from '~/composables/useAuth'
+import useAuth, { user } from '#shared/utils/useAuth'
 
-const { user, signIn, signUp, signOut, isLoading } = useAuth()
+const auth = useAuth()
+const { signIn, signUp, signOut, isLoading } = auth
+</script>
+```
+
+Or use the exported `user` reactive reference directly:
+
+```vue
+<script setup>
+import { user } from '#shared/utils/useAuth'
+
+// user is a computed ref that contains the current user or null
 </script>
 ```
 
@@ -220,6 +254,11 @@ modules/0000-auth/
 ├── runtime/
 │   └── auth.js           # API route handler
 └── README.md             # This file
+
+Required files outside the module:
+shared/
+└── utils/
+    └── useAuth.js        # Client-side auth composable (see Installation step 6)
 ```
 
 ## Customization
