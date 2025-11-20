@@ -3,6 +3,11 @@
 import { promises as fsp } from 'node:fs'
 import { relative, join, normalize } from 'pathe'
 import { extendPages, addComponentsDir, defineNuxtModule, createResolver, addServerHandler } from '@nuxt/kit'
+import checkEnvironmentVariables from './lib/checkEnvironmentVariables.server'
+
+// Check environment variables
+// This is done here to ensure that the environment variables are checked before any other code is executed
+checkEnvironmentVariables()
 
 export default defineNuxtModule({
   meta: {

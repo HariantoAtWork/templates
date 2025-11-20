@@ -31,7 +31,7 @@ function loadEnvFile() {
         }
       }
     })
-  } catch (error) {
+  } catch {
     // .env file doesn't exist or can't be read, continue with system env vars
   }
 }
@@ -61,10 +61,12 @@ function checkEnvironmentVariables() {
   const missingVars = []
 
   // Check if running in proxy mode
-  const isProxyMode = process.env.BETTER_AUTH_PROXY_URL?.trim() !== ''
+  // If BETTER_AUTH_PROXY_URL is defined and non-empty, skip SMTP and database checks
+  const isProxyMode = Boolean(process.env.BETTER_AUTH_PROXY_URL?.trim())
 
   if (isProxyMode) {
-    console.log('🔄 Running in proxy mode - skipping SMTP and database checks')
+    console.log('🔄 Running in Better Auth Proxy mode - skipping SMTP and database checks')
+    return
   }
 
   // Check always required variables (core auth)
