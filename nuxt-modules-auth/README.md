@@ -120,7 +120,7 @@ This file provides:
 - Reactive user state that can be used throughout your application
 - Session management utilities
 
-**Note**: This file must be created in the `shared/utils/` directory for the module to work correctly with client-side components.
+**Note**: This file must be created in the `shared/utils/` directory. Once created, `useAuth` will be **auto-imported** and can be used directly in your Vue components without manual imports.
 
 ## Configuration
 
@@ -173,18 +173,22 @@ The module automatically creates the following API routes:
 
 ### Client-Side Usage
 
-Import the auth composable in your Vue components:
+The `useAuth` composable is **auto-imported** when `shared/utils/useAuth.js` exists. You can use it directly in your Vue components without importing:
 
 ```vue
 <script setup>
-import useAuth, { user } from '#shared/utils/useAuth'
-
-const auth = useAuth()
-const { signIn, signUp, signOut, isLoading } = auth
+const { useSession, signOut, signIn, signUp, forgetPassword } = useAuth()
 </script>
 ```
 
-Or use the exported `user` reactive reference directly:
+Available methods:
+- `useSession()` - Get the current session (returns a reactive ref)
+- `signIn()` - Sign in with email/password
+- `signUp()` - Create a new account
+- `signOut()` - Sign out the current user
+- `forgetPassword()` - Request a password reset
+
+You can also access the `user` reactive reference directly if needed:
 
 ```vue
 <script setup>
